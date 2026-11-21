@@ -1,42 +1,550 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8">
-    <title> Ryuta Sakamoto</title>
-    <meta name="description" content="社会人になる前に！一からwebページ制作">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RYUTA SAKAMOTO (RS09) — PERSONAL WORKS &amp; PLAYGROUND</title>
+  <meta name="description" content="Ryuta Sakamoto (RS09) の個人開発ポートフォリオ。自分の「好き」や「興味」から作った旅先診断「スキバレ (Suki-Bare)」、ごはん即決ルーレット「PLACEAT」、麻雀得点管理「AutoCalc」、開発記（Zenn・Qiita）を掲載。" />
+  <meta name="theme-color" content="#EBF2F7" />
+  <link rel="canonical" href="https://rs09s.github.io/" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
-    <!-- CSSの記述 -->
-      <link rel="stylesheet" href="http://unpkg.com/ress/dist/ress.min.css">
-      <link href="css/style.css" rel="stylesheet">
-      <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-      <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-      <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-      <link rel="manifest" href="images/site.webmanifest">
-      <link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5">
-      <meta name="msapplication-TileColor" content="#da532c">
-      <meta name="theme-color" content="#ffffff">
-    </head>
+  <!-- Open Graph / X (Twitter) Card -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rs09s.github.io/" />
+  <meta property="og:site_name" content="RYUTA SAKAMOTO (RS09) — PORTFOLIO" />
+  <meta property="og:title" content="RYUTA SAKAMOTO (RS09) — 自分の「好き」や「興味」を、かたちにする。" />
+  <meta property="og:description" content="穴場旅先診断「スキバレ (Suki-Bare)」、ごはん即決ルーレット「PLACEAT」、麻雀得点管理「AutoCalc」など、好奇心から生まれた個人開発アーカイブ。" />
+  <meta property="og:image" content="https://rs09s.github.io/images/sukibare_hero.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@rs09_lab" />
+  <meta name="twitter:creator" content="@rs09_lab" />
+  <meta name="twitter:title" content="RYUTA SAKAMOTO (RS09) — PERSONAL WORKS &amp; PLAYGROUND" />
+  <meta name="twitter:description" content="自分の「好き」や「興味」から生まれた個人開発Webアプリと試行錯誤のアーカイブ。" />
+  <meta name="twitter:image" content="https://rs09s.github.io/images/sukibare_hero.png" />
 
-  <body>
-    <div id="home" class="big-bg">
-      <header class="page-header wrapper">
-        <nav>
-          <ul class="main-nav">
-            <li> <a href="index.html">Home</a></li>
-            <li> <a href="aboutme.html">About Me</a></li>
-            <li> <a href="research.html">Research</a></li>
-            <li> <a href="publications.html">Publications</a></li>
-          </ul>
-        </nav>
-      </header>
+  <!-- Google Fonts: Syne (Display), Shippori Mincho (Editorial Serif), Noto Sans JP, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
 
-      <div class="home-content wrapper fade">
-        <h2 class="page-title">Ryuta Sakamoto</h2>
-        <h3>received his B.E. degree in electronics and electrical engineering from
-            Keio University, Japan, in 2019. He is currently
-            pursuing his M.E. degree in integrated design
-            engineering at Keio University, Japan.</h3>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ==========================================
+       INTERACTIVE MORPHING CURSOR (Desktop)
+  =========================================== -->
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-follower" id="cursor-follower" aria-hidden="true">
+    <span class="cursor-label" id="cursor-label"></span>
+  </div>
+
+  <!-- Top Scroll Progress Line -->
+  <div class="scroll-progress-track" aria-hidden="true">
+    <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
+  </div>
+
+  <!-- Subtle Blueprint Paper Texture -->
+  <div class="paper-grain" aria-hidden="true"></div>
+
+  <!-- ==========================================
+       EDITORIAL TOP FRAME BAR
+  =========================================== -->
+  <header class="frame-header" id="frame-header">
+    <a href="#top" class="frame-brand" data-cursor="TOP">
+      <span class="cobalt-dot"></span>
+      <span class="brand-mono" data-scramble="RS09 // RYUTA SAKAMOTO">RS09 // RYUTA SAKAMOTO</span>
+    </a>
+
+    <div class="frame-center-meta">
+      <span>TOKYO, JP</span>
+      <span class="meta-slash">/</span>
+      <span id="live-clock">PERSONAL PLAYGROUND</span>
+    </div>
+
+    <nav class="frame-nav" aria-label="Primary Navigation">
+      <a href="#works" class="frame-nav-link" data-scramble="WORKS"><span>01</span>WORKS</a>
+      <a href="#journal" class="frame-nav-link" data-scramble="JOURNAL"><span>02</span>JOURNAL</a>
+      <a href="#profile" class="frame-nav-link" data-scramble="PROFILE"><span>03</span>PROFILE</a>
+      <a href="#contact" class="frame-nav-cta magnetic" data-cursor="TALK">CONNECT ↗</a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ==========================================
+         00. HERO — BLUE EDITORIAL MAGAZINE COVER
+    =========================================== -->
+    <section class="cover-hero">
+      <div class="cover-grid">
+
+        <!-- Left Vertical Spine -->
+        <div class="cover-spine">
+          <span class="spine-issue">VOL. 2026 — PERSONAL WORKS &amp; CURIOSITY</span>
+          <span class="spine-line"></span>
+          <span class="spine-author">RYUTA SAKAMOTO // @rs09_lab</span>
+        </div>
+
+        <!-- Main Center Spread -->
+        <div class="cover-stage">
+          <div class="cover-kicker">
+            <span class="kicker-tag">PERSONAL PLAYGROUND</span>
+            <span class="kicker-sub">THINGS I LOVE &amp; BUILT</span>
+          </div>
+
+          <!-- Contrast of Giant Geometric Latin & Expressive Japanese Mincho -->
+          <h1 class="cover-headline">
+            <span class="hl-en-row">
+              <span class="hl-word" data-parallax="-0.08">PLAYFUL</span>
+              <span class="hl-serif-italic" data-parallax="0.06">Creation</span>
+            </span>
+            <span class="hl-jp-row">
+              自分の「好き」や「興味」を、<em>かたち</em>にする。
+            </span>
+          </h1>
+
+          <div class="cover-manifesto-grid">
+            <p class="cover-lead">
+              日常の中でふと気になったことや、自分が「これあったら面白いな」「欲しいな」と思ったものを、興味の赴くままに作って公開しています。<br />
+              好きな写真からまだ見ぬ穴場旅先を見つける<strong>「スキバレ」</strong>や、今日のごはんを即決する<strong>「PLACEAT」</strong>、麻雀の得点管理ツールなど、自分の好みと好奇心から生まれた個人開発のアーカイブです。
+            </p>
+
+            <!-- Interactive 3D-Tilt Floating Polaroid Collage Preview -->
+            <a href="#works" class="cover-collage tilt-target" data-cursor="EXPLORE" aria-label="Scroll to Featured Works">
+              <div class="collage-card card-back">
+                <img src="images/sukibare_sub.png" alt="スキバレ 12の旅の深層心理" />
+              </div>
+              <div class="collage-card card-front">
+                <img src="images/sukibare_hero.png" alt="スキバレ トップ画面" />
+                <span class="collage-badge">PICKUP // スキバレ (Suki-Bare)</span>
+              </div>
+              <div class="collage-stamp magnetic">
+                <svg viewBox="0 0 120 120" class="rotating-stamp" aria-hidden="true">
+                  <path id="circlePath" d="M 60, 60 m -44, 0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0" fill="none" />
+                  <text>
+                    <textPath href="#circlePath" textLength="265">EXPLORE WORKS • RS09 ARCHIVE •</textPath>
+                  </text>
+                </svg>
+                <span class="stamp-arrow">↓</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Kinetic Cobalt Ribbon Divider -->
+      <div class="kinetic-ribbon" aria-hidden="true">
+        <div class="ribbon-track" id="ribbon-track">
+          <span>SUKI-BARE (TRAVEL &amp; PHOTO)</span><span class="r-star">✦</span>
+          <span>PLACEAT (MEAL ROULETTE)</span><span class="r-star">✦</span>
+          <span>AUTOCALC (MAHJONG SCORE)</span><span class="r-star">✦</span>
+          <span>CURIOSITY DRIVEN</span><span class="r-star">✦</span>
+          <span>SUKI-BARE (TRAVEL &amp; PHOTO)</span><span class="r-star">✦</span>
+          <span>PLACEAT (MEAL ROULETTE)</span><span class="r-star">✦</span>
+          <span>AUTOCALC (MAHJONG SCORE)</span><span class="r-star">✦</span>
+          <span>CURIOSITY DRIVEN</span><span class="r-star">✦</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         01. SELECTED WORKS — EDITORIAL SPREADS
+    =========================================== -->
+    <section id="works" class="works-chapter">
+      <div class="chapter-header reveal">
+        <div class="chapter-index">
+          <span class="chapter-num">01</span>
+          <span class="chapter-label">THINGS I BUILT</span>
+        </div>
+        <h2 class="chapter-title">
+          <span class="ct-en" data-scramble="Selected Works">Selected Works</span>
+          <span class="ct-jp">興味から生まれたWebアプリ・サービス</span>
+        </h2>
+      </div>
+
+      <!-- ----------------------------------------
+           WORK 01: SUKI-BARE (スキバレ) — WITH INTERACTIVE PHOTO-VIBE DECK
+      ----------------------------------------- -->
+      <article class="work-spread spread-featured reveal">
+        <div class="spread-number-bg" data-parallax="-0.12" aria-hidden="true">01</div>
+
+        <div class="spread-left">
+          <div class="spread-meta">
+            <span class="status-pill">● LIVE SERVICE</span>
+            <span class="spread-cat">TRAVEL × PHOTO DIAGNOSIS</span>
+            <span class="spread-year">sukibare.jp</span>
+          </div>
+
+          <h3 class="spread-title">
+            <span class="st-jp">スキバレ</span>
+            <span class="st-en">Suki-Bare</span>
+          </h3>
+
+          <p class="spread-catch">
+            「あなたの“好き”と行くべき秘境が、AIにバレる。」
+          </p>
+
+          <p class="spread-story">
+            「旅行に行きたいけれど、定番の観光地はちょっと飽きたし、自分が本当はどんな景色を求めているのか分からない」——そんな自分の興味から作った旅先提案サイトです。スマホにある「なんとなく好きな写真」を1〜3枚選ぶだけで、写真の雰囲気や色合いから12タイプの深層心理（Vibe）を診断し、ガイドブックに載らない日本の穴場スポットや隠れ温泉街を提案します。
+          </p>
+
+          <!-- Interactive Mini Gimmick: Vibe Switcher Deck -->
+          <div class="vibe-gimmick-box">
+            <div class="vibe-gimmick-head">
+              <span>✦ INTERACTIVE DEMO — 気分（写真タイプ）を切り替えて穴場を見る</span>
+            </div>
+            <div class="vibe-tabs" role="tablist">
+              <button type="button" class="vibe-tab active" data-vibe="sunset" data-cursor="TRY">01. 黄昏のセンチメンタル</button>
+              <button type="button" class="vibe-tab" data-vibe="retro" data-cursor="TRY">02. 昭和ノスタルジー</button>
+              <button type="button" class="vibe-tab" data-vibe="silence" data-cursor="TRY">03. 静寂とミニマリズム</button>
+            </div>
+            <div class="vibe-result-card" id="vibe-result-card">
+              <div class="vr-type" id="vr-type">VIBE: SUNSET EMOTIONAL // 午前5時の潮風に本音を預ける旅人</div>
+              <div class="vr-spot" id="vr-spot">提案スポット：<strong>驫木駅（青森県）</strong> — 目の前に日本海だけが広がる木造の無人駅</div>
+            </div>
+          </div>
+
+          <div class="spread-actions">
+            <a href="https://sukibare.jp" target="_blank" rel="noopener noreferrer" class="editorial-btn btn-cobalt magnetic" data-cursor="VISIT ↗">
+              <span>スキバレを開く (sukibare.jp)</span>
+              <span class="btn-arr">↗</span>
+            </a>
+            <a href="https://qiita.com/RS09/items/4e021b2eb0b07fe9a059" target="_blank" rel="noopener noreferrer" class="editorial-link" data-cursor="QIITA">
+              開発・リニューアルの裏話を読む →
+            </a>
+          </div>
+        </div>
+
+        <div class="spread-right">
+          <div class="showcase-gallery">
+            <a href="https://sukibare.jp" target="_blank" rel="noopener noreferrer" class="gallery-main-shot tilt-target" data-cursor="OPEN SITE">
+              <div class="shot-window-bar">
+                <span class="win-dot"></span><span class="win-dot"></span><span class="win-dot"></span>
+                <span class="win-addr">https://sukibare.jp</span>
+              </div>
+              <img src="images/sukibare_hero.png" alt="スキバレ トップ画面" loading="lazy" />
+            </a>
+
+            <a href="https://sukibare.jp" target="_blank" rel="noopener noreferrer" class="gallery-sub-shot tilt-target" data-cursor="OPEN SITE">
+              <img src="images/sukibare_sub.png" alt="スキバレ 診断結果サンプル＆12タイプ図鑑" loading="lazy" />
+              <span class="shot-caption">FIG 1.2 — 診断結果サンプルと「12の旅の深層心理」図鑑</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ----------------------------------------
+           WORK 02 & 03: ASYMMETRIC DUO SPREAD (PLACEAT & AUTOCALC)
+      ----------------------------------------- -->
+      <div class="duo-spread">
+
+        <!-- WORK 02: PLACEAT (with Interactive Live Roulette Widget!) -->
+        <article class="duo-card duo-placeat reveal">
+          <div class="duo-top-bar">
+            <span class="duo-index">WORK // 02</span>
+            <span class="duo-type">MEAL DECISION ROULETTE</span>
+          </div>
+
+          <!-- Interactive Mini Roulette Poster inside the Card -->
+          <div class="interactive-poster placeat-stage">
+            <div class="stage-instruction">▼ LIVE GIMMICK — ボタンを押して今日のごはんを即決！</div>
+            <div class="roulette-display" id="roulette-box">
+              <span class="roulette-emoji" id="roulette-emoji">🥩</span>
+              <span class="roulette-genre" id="roulette-genre">焼肉 (YAKINIKU)</span>
+            </div>
+            <div class="roulette-controls">
+              <button type="button" class="roulette-trigger magnetic" id="roulette-trigger" data-cursor="SPIN!">
+                SPIN ROULETTE ↻
+              </button>
+              <span class="roulette-count">16 GENRES</span>
+            </div>
+          </div>
+
+          <div class="duo-body">
+            <h3 class="duo-title">
+              PLACEAT
+              <span class="duo-title-sub">プレイスイート — ごはんどうする？今日から即決！</span>
+            </h3>
+            <p class="duo-desc">
+              友達や家族と出先で「今日なに食べる？」「なんでもいいよ」と迷う時間を楽しく解決したくて作ったWebアプリ。和食・ラーメン・寿司・焼肉・イタリアン・カレーなど16種類のジャンルから今の気分に合う候補を選び、ルーレット一発でその日の食事を即決できます。
+            </p>
+
+            <div class="duo-footer">
+              <a href="https://rs09s.github.io/placeat/" target="_blank" rel="noopener noreferrer" class="editorial-btn btn-navy magnetic" data-cursor="OPEN ↗">
+                <span>PLACEAT を開く</span>
+                <span class="btn-arr">↗</span>
+              </a>
+              <a href="https://github.com/RS09s/placeat" target="_blank" rel="noopener noreferrer" class="editorial-link" data-cursor="CODE">
+                GitHub ↗
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- WORK 03: AUTOCALC (Offset Asymmetric Alignment) -->
+        <article class="duo-card duo-autocalc reveal">
+          <div class="duo-top-bar">
+            <span class="duo-index">WORK // 03</span>
+            <span class="duo-type">MAHJONG SCORE MANAGER</span>
+          </div>
+
+          <!-- Graphic Scoreboard Stage -->
+          <div class="interactive-poster autocalc-stage">
+            <div class="stage-instruction">▼ LIVE GIMMICK — 点棒移動シミュレーション</div>
+            <div class="mahjong-board" id="mahjong-board">
+              <div class="mj-wind">
+                <span class="wind-kanji">東</span>
+                <span class="wind-score" data-score="36000">36,000</span>
+              </div>
+              <div class="mj-wind">
+                <span class="wind-kanji">南</span>
+                <span class="wind-score" data-score="24000">24,000</span>
+              </div>
+              <div class="mj-wind">
+                <span class="wind-kanji">西</span>
+                <span class="wind-score" data-score="22000">22,000</span>
+              </div>
+              <div class="mj-wind">
+                <span class="wind-kanji">北</span>
+                <span class="wind-score" data-score="18000">18,000</span>
+              </div>
+            </div>
+            <div class="roulette-controls">
+              <button type="button" class="roulette-trigger trigger-cyan magnetic" id="score-sim-btn" data-cursor="CALC!">
+                SIMULATE HAND (+8,000) ↻
+              </button>
+              <span class="roulette-count">TOTAL: 100,000</span>
+            </div>
+          </div>
+
+          <div class="duo-body">
+            <h3 class="duo-title">
+              AutoCalc
+              <span class="duo-title-sub">麻雀得点管理 — 計算いらずのスコア自動集計ツール</span>
+            </h3>
+            <p class="duo-desc">
+              麻雀が好きな自分が「対局中の点数計算や点棒のやり取りをもっとラクにしたい」と思って作ったスコア管理ツール。アガリ時の点数移動をブラウザ上でシンプルに自動集計し、4人の持ち点推移をリアルタイムに管理できます。
+            </p>
+
+            <div class="duo-footer">
+              <a href="https://rs09s.github.io/autocalc/" target="_blank" rel="noopener noreferrer" class="editorial-btn btn-navy magnetic" data-cursor="OPEN ↗">
+                <span>AutoCalc を開く</span>
+                <span class="btn-arr">↗</span>
+              </a>
+              <a href="https://github.com/RS09s/autocalc" target="_blank" rel="noopener noreferrer" class="editorial-link" data-cursor="CODE">
+                GitHub ↗
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         02. JOURNAL & NOTES (DEEP MIDNIGHT BLUE CONTRAST SECTION)
+    =========================================== -->
+    <section id="journal" class="journal-chapter">
+      <div class="journal-inner">
+        <div class="chapter-header chapter-header-dark reveal">
+          <div class="chapter-index">
+            <span class="chapter-num">02</span>
+            <span class="chapter-label">MAKING LOGS &amp; STORIES</span>
+          </div>
+          <h2 class="chapter-title">
+            <span class="ct-en" data-scramble="Dev Journal">Dev Journal</span>
+            <span class="ct-jp">作ってみた記録と試行錯誤のノート（Zenn / Qiita）</span>
+          </h2>
+        </div>
+
+        <!-- Editorial Interactive Index List -->
+        <div class="journal-list">
+
+          <!-- Entry 01: Zenn -->
+          <a href="https://zenn.dev/rs09/articles/8fb41cefa1e5f9" target="_blank" rel="noopener noreferrer" class="journal-item reveal" data-cursor="READ ZENN">
+            <div class="ji-left">
+              <span class="ji-num">LOG 01</span>
+              <span class="ji-platform plat-zenn">ZENN</span>
+              <span class="ji-date">2026.11.21</span>
+            </div>
+            <div class="ji-center">
+              <h3 class="ji-title">
+                個人開発のAI診断アプリを「検索流入ゼロ構造」から脱却させるハイブリッド設計
+              </h3>
+              <p class="ji-summary">
+                せっかく作った「スキバレ」に検索からも人が来てくれるように、1ページだけの診断ツールから「12タイプの心理図鑑＋旅行ガイド記事（全21ページ）」へ拡張したときの設計記録。
+              </p>
+            </div>
+            <div class="ji-right">
+              <span class="ji-read">READ NOTE ↗</span>
+            </div>
+          </a>
+
+          <!-- Entry 02: Qiita Renewal -->
+          <a href="https://qiita.com/RS09/items/4e021b2eb0b07fe9a059" target="_blank" rel="noopener noreferrer" class="journal-item reveal" data-cursor="READ QIITA">
+            <div class="ji-left">
+              <span class="ji-num">LOG 02</span>
+              <span class="ji-platform plat-qiita">QIITA</span>
+              <span class="ji-date">2026.11.21</span>
+            </div>
+            <div class="ji-center">
+              <h3 class="ji-title">
+                【個人開発】未経験で作ったAI旅行診断を、進化したAIと全面改修して「1ページのツール」から「旅メディア」に育てた記録
+              </h3>
+              <p class="ji-summary">
+                最初は「エラーなく動くこと」がゴールだったアプリを自分で使ってみて気づいた課題と、画像形式の罠や宿検索連携など、全面リニューアルでぶつかった「5つの壁」を突破した話。
+              </p>
+            </div>
+            <div class="ji-right">
+              <span class="ji-read">READ NOTE ↗</span>
+            </div>
+          </a>
+
+          <!-- Entry 03: Qiita 413 Error -->
+          <a href="https://qiita.com/RS09/items/c34f7229a841d53b1789" target="_blank" rel="noopener noreferrer" class="journal-item reveal" data-cursor="READ QIITA">
+            <div class="ji-left">
+              <span class="ji-num">LOG 03</span>
+              <span class="ji-platform plat-qiita">QIITA</span>
+              <span class="ji-date">2025.11.30</span>
+            </div>
+            <div class="ji-center">
+              <h3 class="ji-title">
+                【完全未経験】Geminiを使った個人開発完遂、Vercelの「413 エラー」をクライアント側圧縮で突破した話
+              </h3>
+              <p class="ji-summary">
+                知識ゼロからエラーログと格闘しながら初めてのWebアプリを公開するまでの道のりと、スマホ写真のサイズが大きすぎて発生した「413エラー」をブラウザ内圧縮で解決した記録。
+              </p>
+            </div>
+            <div class="ji-right">
+              <span class="ji-read">READ NOTE ↗</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         03. PROFILE & ROOTS
+    =========================================== -->
+    <section id="profile" class="profile-chapter">
+      <div class="chapter-header reveal">
+        <div class="chapter-index">
+          <span class="chapter-num">03</span>
+          <span class="chapter-label">ABOUT ME &amp; ARCHIVE</span>
+        </div>
+        <h2 class="chapter-title">
+          <span class="ct-en" data-scramble="Profile & Roots">Profile &amp; Roots</span>
+          <span class="ct-jp">自己紹介とこれまでの歩み</span>
+        </h2>
+      </div>
+
+      <div class="profile-editorial-grid reveal">
+        <!-- Col 1: Portrait & Signature -->
+        <div class="pe-portrait-col">
+          <div class="pe-photo-wrap tilt-target">
+            <img
+              src="images/myself.png"
+              alt="Ryuta Sakamoto"
+              class="pe-photo"
+              onerror="this.style.display='none'"
+            />
+            <span class="pe-photo-tag">RS09 // @rs09_lab</span>
+          </div>
+          <div class="pe-social-list">
+            <a href="https://x.com/rs09_lab" target="_blank" rel="noopener noreferrer" data-cursor="X / TWITTER">X / TWITTER (@rs09_lab) ↗</a>
+            <a href="https://zenn.dev/rs09" target="_blank" rel="noopener noreferrer" data-cursor="ZENN">ZENN (@rs09) ↗</a>
+            <a href="https://qiita.com/RS09" target="_blank" rel="noopener noreferrer" data-cursor="QIITA">QIITA (@RS09) ↗</a>
+            <a href="https://github.com/RS09s" target="_blank" rel="noopener noreferrer" data-cursor="GITHUB">GITHUB (@RS09s) ↗</a>
+          </div>
+        </div>
+
+        <!-- Col 2: Essay & Roots -->
+        <div class="pe-narrative-col">
+          <div class="pe-name-block">
+            <span class="pe-role">PERSONAL DEVELOPER // @rs09_lab</span>
+            <h3 class="pe-name">阪本 竜太 <small>RYUTA SAKAMOTO</small></h3>
+          </div>
+
+          <p class="pe-essay">
+            旅行、美味しいごはん、麻雀など、自分が日常の中で好きなことや興味を持ったことをきっかけに、「こんなサービスがあったらいいな」を形にする個人開発を楽しんでいます。
+          </p>
+          <p class="pe-essay">
+            試行錯誤しながらアプリを作り上げていく過程や、つまずいたポイント・工夫した仕組みなどを Qiita や Zenn、X（<a href="https://x.com/rs09_lab" target="_blank" rel="noopener noreferrer" class="inline-text-link">@rs09_lab</a>）で発信しています。
+          </p>
+
+          <!-- Compact Interests & Academic Footnote -->
+          <div class="pe-specs-grid">
+            <div class="pe-spec-box">
+              <h4>FAVORITES &amp; INTERESTS</h4>
+              <p>一人旅・穴場スポット巡り / 温泉 / グルメ開拓 / 麻雀 / 写真 / Webアプリづくり / 試行錯誤のログ執筆</p>
+            </div>
+            <div class="pe-spec-box">
+              <h4>PAST RESEARCH ARCHIVE (QoE / STREAMING)</h4>
+              <ul class="pe-footnote-list">
+                <li><strong>奨励賞受賞 (2019)：</strong>電子情報通信学会 コミュニケーションクオリティ研究会 奨励賞</li>
+                <li><strong>筆頭論文 (2020)：</strong><em>IEICE Transactions on Communications</em>（動画ストリーミングにおける体感品質・QoE安定化制御）</li>
+                <li><strong>国際会議・学会発表：</strong><em>NOLTA 2019</em>（査読付き）および国内研究会・大会 筆頭4件</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       04. FOOTER — DEEP BLUE MONUMENTAL CLOSING
+  =========================================== -->
+  <footer id="contact" class="poster-footer">
+    <div class="pf-top">
+      <div class="pf-cta-block reveal">
+        <span class="pf-eyebrow">04 // SAY HELLO</span>
+        <h2 class="pf-headline">
+          Thanks for visiting.<br />
+          <em>Let’s connect.</em>
+        </h2>
+        <div class="pf-buttons">
+          <a href="https://x.com/rs09_lab" target="_blank" rel="noopener noreferrer" class="editorial-btn btn-cobalt magnetic" data-cursor="FOLLOW ↗">
+            <span>X (@rs09_lab) を見る・連絡する</span>
+            <span class="btn-arr">↗</span>
+          </a>
+          <a href="https://forms.gle/3qwP2ac8255rwUWC9" target="_blank" rel="noopener noreferrer" class="editorial-btn btn-outline-light magnetic" data-cursor="FORM ↗">
+            <span>お問い合わせフォーム</span>
+            <span class="btn-arr">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="pf-directory">
+        <div class="pf-col">
+          <span class="pf-col-title">WORKS</span>
+          <a href="https://sukibare.jp" target="_blank" rel="noopener noreferrer">スキバレ (Suki-Bare) ↗</a>
+          <a href="https://rs09s.github.io/placeat/" target="_blank" rel="noopener noreferrer">PLACEAT ↗</a>
+          <a href="https://rs09s.github.io/autocalc/" target="_blank" rel="noopener noreferrer">AutoCalc ↗</a>
+        </div>
+        <div class="pf-col">
+          <span class="pf-col-title">LINKS</span>
+          <a href="https://x.com/rs09_lab" target="_blank" rel="noopener noreferrer">X (@rs09_lab) ↗</a>
+          <a href="https://zenn.dev/rs09" target="_blank" rel="noopener noreferrer">Zenn (@rs09) ↗</a>
+          <a href="https://qiita.com/RS09" target="_blank" rel="noopener noreferrer">Qiita (@RS09) ↗</a>
+          <a href="https://github.com/RS09s" target="_blank" rel="noopener noreferrer">GitHub (@RS09s) ↗</a>
+        </div>
       </div>
     </div>
-  </body>
+
+    <div class="pf-monumental">
+      <div class="pf-giant-word" aria-hidden="true">RYUTA SAKAMOTO</div>
+      <div class="pf-bottom-bar">
+        <span>© <span id="year">2026</span> RYUTA SAKAMOTO (RS09 / @rs09_lab).</span>
+        <a href="#top" class="back-to-top" data-cursor="TOP ↑">BACK TO TOP ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
 </html>
